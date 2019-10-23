@@ -3,6 +3,7 @@ import {PersistGate} from 'redux-persist/integration/react';
 import {Provider} from 'react-redux';
 import {StatusBar} from 'react-native';
 import OneSignal from 'react-native-onesignal';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import './config/ReactotronConfig';
 
@@ -32,10 +33,17 @@ export default class Index extends Component {
     console.tron.log('****** /onReceived ******');
   };
 
-  onOpened = notification => {
-    console.tron.log('****** onOpened ******');
-    console.tron.log(notification);
-    console.tron.log('****** /onOpened ******');
+  onOpened = openResult => {
+    const {additionalData} = openResult.notification.payload;
+
+    async function setNotification(notification) {
+      await AsyncStorage.setItem(
+        '@NAJ_ADV/notification',
+        JSON.stringify(notification),
+      );
+    }
+
+    setNotification(additionalData.item);
   };
 
   onIds = id => {
@@ -47,7 +55,6 @@ export default class Index extends Component {
   render() {
     if (__DEV__) {
       console.tron.log('running debug...');
-      console.tron.log(store);
     }
 
     return (

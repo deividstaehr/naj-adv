@@ -1,14 +1,22 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {Container, Title, Message, Left, Right} from './styles';
+import {Container, Title, Message, DateTime, Left, Right} from './styles';
 
-export default function NotificationItem({title, message, ...rest}) {
+export default function NotificationItem({
+  title,
+  dateTime,
+  message,
+  viewed,
+  ...rest
+}) {
   return (
     <Container {...rest}>
-      <Left />
+      <Left style={viewed && {backgroundColor: '#d1d1d1'}} />
       <Right>
         <Title>{title}</Title>
+        <DateTime>{dateTime}</DateTime>
         <Message>{message}</Message>
       </Right>
     </Container>
@@ -18,5 +26,5 @@ export default function NotificationItem({title, message, ...rest}) {
 NotificationItem.propTypes = {
   title: PropTypes.string,
   message: PropTypes.string,
-  icon: PropTypes.string,
+  dateTime: PropTypes.string,
 };

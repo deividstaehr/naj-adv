@@ -28,6 +28,11 @@ export const Title = styled.Text.attrs({
   font-family: 'Quicksand-Bold';
 `;
 
+export const DateTime = styled.Text`
+  text-align: right;
+  padding-right: 15px;
+`;
+
 export const Message = styled.Text.attrs({
   numberOfLines: 2,
 })`
